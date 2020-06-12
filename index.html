@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+
+    <title>Covid-19</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+<script src="js/three.min.js"></script>
+<script src="js/OrbitControls.js"></script>
+
+
+<script src="geo-data-usa.js"></script>
+<script src="geo-data-global.js"></script>
+<script src="info.js"></script>
+
+<script src="js/sceneHandler.js"></script>
+
+<nav id="navMenu">
+
+    <details id="detNavMenu" >
+
+        <summary style=margin-bottom:2ch;padding:0;>Mostrar menú</summary>
+
+        <header id="hdrTitle">
+
+            <h2>
+                <span id=spnTitle></span>&nbsp;
+            </h2>
+
+        </header>
+
+        <hr>
+
+        <details id=setInteractiveLegend open>
+
+            <summary>Filtros</summary>
+
+            <p class=navLegend style=background-color:red; title=";-(">
+                <button id=butCases class=butLegend onclick=toggleBars(groupCasesWP)
+                        style=background-color:red;color:white;width:100%;>
+                    Casos confirmados&nbsp;</button>
+            </p>
+
+            <p class=navLegend style=background-color:deepskyblue; title=";-(">
+                <button id=actCases class=butLegend onclick=toggleBars(groupActiveCasesWP)
+                        style=background-color:deepskyblue;color:white;width:100%;>
+                    Casos Activos X_X&nbsp;</button>
+            </p>
+
+            <p class=navLegend style=background-color:purple; title=";-(">
+                <button id=butDeaths class=butLegend onclick=toggleBars(groupDeathsWP)
+                        style=background-color:purple;color:white;width:100%;>
+                    Muertes confirmadas&nbsp;</button>
+            </p>
+
+            <p class=navLegend style=background-color:limegreen; title=";-)">
+                <button id=butRecoveries class=butLegend onclick=toggleBars(groupRecoveriesWP)
+                        style=background-color:limegreen;width:100%;>
+                    Recuperaciones confirmadas&nbsp;
+                </button>
+            </p>
+            <hr>
+
+        </details>
+
+    </details>
+
+</nav>
+
+
+<footer  >
+
+		<span style="bottom:1ch;position:fixed;display:inline;left: calc(50vw - 16ch);border: 0px solid red;" >
+			<button onclick=SHConf.controls.reset(); class=ftrButton title="Vista inicial">&CirclePlus;</button>
+			&nbsp;
+			<button onclick="SHConf.controls.autoRotate=!SHConf.controls.autoRotate" title="Rotación"
+                    class=ftrButton>&circlearrowright;</button>
+			&nbsp;
+			<button onclick=" TEXTO.group.visible=! TEXTO.group.visible" title="Mostrar estadisticas"
+                    class=ftrButton>&sdotb;</button>
+			&nbsp;
+		</span>
+
+</footer>
+
+
+
+<script src="js/main.js"></script>
+<script src="wikipedia-info.js"></script>
+
+
+<script src="js/mensaje-popUp.js"></script>
+
+<script src="wikipedia.js"></script>
+
+<script src="js/threeGeoJSON.js"></script>
+<script src="js/globo.js"></script>
+<script src="js/texto-ayuda.js"></script>
+<script src="js/estadisticas-flotantes.js"></script>
+
+
+<script>
+
+
+    SHConf.init();
+
+    SHConf.animate();
+
+    initMain();
+
+    function initMain () {
+
+        WIKIPEDIA.scale = true;
+
+        WIKIPEDIA.init();
+
+        Globo.addLights();
+        Globo.addGlobe();
+
+        TEXTO.init();
+
+        MensajePopUp.init();
+        MensajePopUp.objects = groupCasesWP.children;
+
+        MensajeDivContent.innerHTML = `
+				<div id=divMessageTitle ></div>
+				<div>
+				    Proyecto para Gráficas Computacionales<br>
+				    <br>
+				    Marco Antonio Rios Gutierritos A01378840<br>
+				    Marlon Brandon Velasco Pinello A01379404<br>
+				    <br>
+					Datos extraidos de Wikipedia <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory"
+					target="_blank">
+					"COVID-19 pandemic by country and territory"</a>
+				</div>
+			`;
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches === false) {
+
+            Globo.toggleSkyBox();
+
+        }
+
+
+    }
+
+</script>
+</body>
+
+</html>
